@@ -3,9 +3,33 @@ use 5.008001;
 use strict;
 use warnings;
 
+use Plack::Response;
+use parent qw/Plack::Middleware/;
+
 our $VERSION = "0.01";
 
+sub call {
+    my $self = shift;
+    my $env  = shift;
 
+    my $res = $self->_may_handle_request($env);
+    return $res // $self->app->($env);
+}
+
+sub _may_handle_request {
+    my($self, $env) = @_;
+
+    my $path_match = $self->path or return;
+    my $path = $env->{PATH_INFO};
+
+    for ($path) {
+        my $matched = 'CODE' eq ref $path_match ? $path_match->($_, $env) : $_ =~ $path_match;
+        return unless $matched;
+    }
+
+    my $res = Plack::Response->new(200);
+    return $res; # TODO
+}
 
 1;
 __END__
