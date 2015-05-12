@@ -42,11 +42,15 @@
       },
       "runtime" : {
          "requires" : {
+            "File::Slurp" : "0",
+            "Plack::Middleware" : "0",
+            "Plack::Response" : "0",
             "perl" : "5.008001"
          }
       },
       "test" : {
          "requires" : {
+            "Plack::Test" : "0",
             "Test::More" : "0.98"
          }
       }

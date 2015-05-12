@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use Plack::Response;
+use File::Slurp qw/read_file/;
 use parent qw/Plack::Middleware/;
 
 our $VERSION = "0.01";
@@ -16,8 +17,20 @@ sub call {
     return $res // $self->app->($env);
 }
 
+sub prepare_app {
+    my $self = shift;
+    $self->_read_revision_file_at_first;
+}
+
+sub _read_revision_file_at_first {
+    my $self = shift;
+    $self->{revision} = do {
+        read_file($self->_revision_filename);
+    };
+}
+
 sub _may_handle_request {
-    my($self, $env) = @_;
+    my ($self, $env) = @_;
 
     my $path_match = $self->path or return;
     my $path = $env->{PATH_INFO};
@@ -27,8 +40,30 @@ sub _may_handle_request {
         return unless $matched;
     }
 
-    my $res = Plack::Response->new(200);
-    return $res; # TODO
+    my $protocol = $env->{SERVER_PROTOCOL};
+    return Plack::Response->new(404) if $protocol ne 'GET' && $protocol ne 'HEAD';
+
+    my $res = Plack::Response->new;
+    if ($self->{revision}) {
+        if (-e $self->_revision_filename) {
+            $res->code(200);
+            $res->body($self->{revision});
+        } else {
+            $res->code(404);
+            $res->body("REVISION_FILE_REMOVED\n");
+        }
+    } else {
+        $res->code(404);
+        $res->body("REVISION_FILE_NOT_FOUND\n");
+    }
+
+    $res->body('') if $protocol eq 'HEAD';
+    return $res;
+}
+
+sub _revision_filename {
+    my $self = shift;
+    $self->{_revision_filename} //= $self->revision_filename // './REVISION';
 }
 
 1;
