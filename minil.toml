@@ -1,0 +1,6 @@
+name = "Plack-Middleware-RevisionPlate"
+# badges = ["travis"]
+authority="cpan:ASTJ"
+
+module_maker="ModuleBuildTiny"
+
