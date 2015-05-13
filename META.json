@@ -45,7 +45,7 @@
             "File::Slurp" : "0",
             "Plack::Middleware" : "0",
             "Plack::Response" : "0",
-            "perl" : "5.008001"
+            "perl" : "5.010"
          }
       },
       "test" : {
