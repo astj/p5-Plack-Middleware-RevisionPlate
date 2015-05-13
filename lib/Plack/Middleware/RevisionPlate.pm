@@ -37,7 +37,7 @@ sub _may_handle_request {
     }
 
     my $method = $env->{REQUEST_METHOD};
-    return Plack::Response->new(404, [], '') if $method ne 'GET' && $method ne 'HEAD';
+    return Plack::Response->new(405)->finalize if $method ne 'GET' && $method ne 'HEAD'; # 405: method not allowed
 
     my $res = Plack::Response->new;
     $res->content_type('text/plain');

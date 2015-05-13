@@ -31,6 +31,20 @@ my $res_nonexists = $test->request(GET '/site/sha_file_not_exists');
 is $res_nonexists->code, 404;
 is $res_nonexists->content, "REVISION_FILE_NOT_FOUND\n";
 
+note "head request allowed";
+my $res_head_exists = $test->request(HEAD '/site/sha_filename_specified');
+is $res_head_exists->code, 200;
+is $res_head_exists->content, '';
+my $res_head_nonexists = $test->request(HEAD '/site/sha_file_not_exists');
+is $res_head_nonexists->code, 404;
+is $res_head_nonexists->content, '';
+
+note "post request NOT allowed";
+my $res_post_exists = $test->request(POST '/site/sha_filename_specified', +{});
+is $res_post_exists->code, 405;
+my $res_post_nonexists = $test->request(POST '/site/sha_file_not_exists', +{});
+is $res_post_nonexists->code, 405;
+
 note "revision file removed after app provisioned";
 unlink $filename2;
 my $res_removed = $test->request(GET '/site/sha_filename_specified');
