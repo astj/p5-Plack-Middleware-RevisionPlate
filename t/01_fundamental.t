@@ -1,24 +1,20 @@
 use strict;
 use warnings;
 use Test::More;
-use parent qw/Test::Class/;
 
 use Plack::Middleware::RevisionPlate;
 
-sub with_revision_filename_specified : Tests {
-    my $middleware = Plack::Middleware::RevisionPlate->new( path => '/otherpath', revision_filename => 't/assets/REVISION_FILE' );
-    is $middleware->path, '/otherpath';
-    is $middleware->_revision_filename, 't/assets/REVISION_FILE', 'specified filename';
+note 'revision_filename fallbacks to default if not specified';
+my $with_default_revision_filename = Plack::Middleware::RevisionPlate->new( path => '/somepath' );
+is $with_default_revision_filename->path, '/somepath';
+is $with_default_revision_filename->_revision_filename, './REVISION', 'fallback to default';
 
-    is $middleware->_read_revision_file_at_first, "deadbeaf\n", 'Can read content of revision_file';
-}
+is $with_default_revision_filename->_read_revision_file_at_first, undef, 'revision file not exists, so undef';
 
-sub with_default_revision_filename : Tests {
-    my $middleware = Plack::Middleware::RevisionPlate->new( path => '/somepath' );
-    is $middleware->path, '/somepath';
-    is $middleware->_revision_filename, './REVISION', 'fallback to default';
+note 'specified EXISTS revision_filename';
+my $with_exists_revision_file = Plack::Middleware::RevisionPlate->new( path => '/otherpath', revision_filename => 't/assets/REVISION_FILE' );
+is $with_exists_revision_file->path, '/otherpath';
+is $with_exists_revision_file->_revision_filename, 't/assets/REVISION_FILE', 'specified filename';
+is $with_exists_revision_file->_read_revision_file_at_first, "deadbeaf\n", 'Can read content of revision_file';
 
-    is $middleware->_read_revision_file_at_first, undef, 'revision file not exists, so undef';
-}
-
-__PACKAGE__->runtests;
+done_testing;
