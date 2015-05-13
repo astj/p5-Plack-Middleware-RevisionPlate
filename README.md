@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/astj/p5-Plack-Middleware-RevisionPlate.svg?branch=master)](https://travis-ci.org/astj/p5-Plack-Middleware-RevisionPlate)
 # NAME
 
 Plack::Middleware::RevisionPlate - It's new $module
