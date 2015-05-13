@@ -59,6 +59,17 @@
       }
    },
    "release_status" : "unstable",
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/astj/p5-Plack-Middleware-RevisionPlate/issues"
+      },
+      "homepage" : "https://github.com/astj/p5-Plack-Middleware-RevisionPlate",
+      "repository" : {
+         "type" : "git",
+         "url" : "git://github.com/astj/p5-Plack-Middleware-RevisionPlate.git",
+         "web" : "https://github.com/astj/p5-Plack-Middleware-RevisionPlate"
+      }
+   },
    "version" : "0.01",
    "x_authority" : "cpan:ASTJ"
 }
