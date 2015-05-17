@@ -10,3 +10,6 @@ on 'test' => sub {
     requires 'HTTP::Request::Common';
 };
 
+on 'develop' => sub {
+    requires 'Software::License::MIT';
+};

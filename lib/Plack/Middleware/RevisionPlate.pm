@@ -70,26 +70,42 @@ __END__
 
 =head1 NAME
 
-Plack::Middleware::RevisionPlate - It's new $module
+Plack::Middleware::RevisionPlate - Serves an endpoint returns application's C<REVISION>.
 
 =head1 SYNOPSIS
 
+    use Plack::Builder;
     use Plack::Middleware::RevisionPlate;
+
+    builder {
+        # Default revision_filename is ./REVISION.
+        enable 'Plack::Middleware::RevisionPlate',
+            path => '/site/sha1';
+
+        # Otherwise you can specify revision_filename.
+        enable 'Plack::Middleware::RevisionPlate',
+            path => '/site/sha1/somemodule', revision_filename => './modules/hoge/REVISION';
+
+        sub {
+            my $env = shift;
+            return [ 200, [], ['Hello! Plack'] ];
+        };
+    };
 
 =head1 DESCRIPTION
 
-Plack::Middleware::RevisionPlate is ...
+Plack::Middleware::RevisionPlate returns content of file C<REVISION> (or the file specified by C<revision_filename> option) on GET/HEAD request to path specified C<path> option.
+Content of endpoint don't changes even if C<REVISION> file changed, but returns 404 if C<REVISION> file removed.
 
 =head1 LICENSE
 
-Copyright (C) Asato Wakisaka.
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+MIT License
 
 =head1 AUTHOR
 
 Asato Wakisaka E<lt>asato.wakisaka@gmail.comE<gt>
+
+This module is a perl port of ruby gem [RevisionPlate](https://github.com/sorah/revision_plate) by sorah.
 
 =cut
 

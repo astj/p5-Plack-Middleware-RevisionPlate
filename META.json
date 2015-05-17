@@ -1,12 +1,12 @@
 {
-   "abstract" : "It's new $module",
+   "abstract" : "Serves an endpoint returns application's C<REVISION>.",
    "author" : [
       "Asato Wakisaka <asato.wakisaka@gmail.com>"
    ],
    "dynamic_config" : 0,
    "generated_by" : "Minilla/v2.3.0, CPAN::Meta::Converter version 2.150001",
    "license" : [
-      "perl_5"
+      "mit"
    ],
    "meta-spec" : {
       "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
@@ -33,6 +33,7 @@
       },
       "develop" : {
          "requires" : {
+            "Software::License::MIT" : "0",
             "Test::CPAN::Meta" : "0",
             "Test::MinimumVersion::Fast" : "0.04",
             "Test::PAUSE::Permissions" : "0.04",
