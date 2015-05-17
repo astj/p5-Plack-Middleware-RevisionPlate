@@ -36,4 +36,4 @@ MIT License
 
 Asato Wakisaka <asato.wakisaka@gmail.com>
 
-This module is a perl port of ruby gem \[RevisionPlate\](https://github.com/sorah/revision\_plate) by sorah.
+This module is a perl port of ruby gem [RevisionPlate](https://github.com/sorah/revision_plate) by sorah.
