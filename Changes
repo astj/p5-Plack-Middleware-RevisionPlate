@@ -2,5 +2,7 @@ Revision history for Perl extension Plack-Middleware-RevisionPlate
 
 {{$NEXT}}
 
-    - original version
+0.01 2015-05-20T04:58:01Z
+
+    - Initial relase(port from gem revision_plate)
 
