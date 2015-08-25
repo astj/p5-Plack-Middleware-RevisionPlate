@@ -26,7 +26,7 @@ Plack::Middleware::RevisionPlate - Serves an endpoint returns application's `REV
 # DESCRIPTION
 
 Plack::Middleware::RevisionPlate returns content of file `REVISION` (or the file specified by `revision_filename` option) on GET/HEAD request to path specified `path` option.
-Content of endpoint don't changes even if `REVISION` file changed, but returns 404 if `REVISION` file removed.
+Content of endpoint doesn't change even if `REVISION` file changed, but returns 404 if `REVISION` file removed.
 
 # LICENSE
 
